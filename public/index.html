@@ -11,16 +11,20 @@
 	</head>
 	
 	<body>
+		<input type="text" id="serverIP">
+		<button id="go">JOIN</button>
+		<canvas id="gameCanvas" style="border:1px solid #000000; visibility:hidden"></canvas>
+		
 		<script>
 			function start() {
 				// Initialise the game
 				init();
 				animate();
+				document.getElementById("gameCanvas").style.visibility = "visible";
 			}
+			document.getElementById("go").onclick = start;
 		</script>
-		<input type="text" id="serverIP">
-		<input type="button" id="go" onclick="start()">
-		<canvas id="gameCanvas"></canvas>
+		
 		<script src="js/socket.io.js"></script>
 		<script src="js/requestAnimationFrame.js"></script>
 		<script src="js/Keys.js"></script>
