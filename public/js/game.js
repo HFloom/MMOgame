@@ -7,12 +7,15 @@ var canvas,			// Canvas DOM element
 	localPlayer,	// Local player
 	remotePlayers,	// Remote players
 	socket;			// Socket connection
-
+	
+var background = new Image();
 
 /**************************************************
 ** GAME INITIALISATION
 **************************************************/
 function init() {
+	background.src = "./img/Background.png";
+
 	// Declare the canvas and rendering context
 	canvas = document.getElementById("gameCanvas");
 	ctx = canvas.getContext("2d");
@@ -178,7 +181,16 @@ function update() {
 function draw() {
 	// Wipe the canvas clean
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+	
+	if(background.width != 0 && background.height != 0) {
+		for(var i = 0; i < canvas.width; i += background.width) {
+			for(var j = 0; j < canvas.height; j += background.height) {
+				ctx.drawImage(background, i, j);
+			}
+		}
+	}
+	
+	
 	// Draw the local player
 	localPlayer.draw(ctx);
 
