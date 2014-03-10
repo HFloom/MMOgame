@@ -180,7 +180,7 @@ function update() {
 **************************************************/
 function draw() {
 	// Wipe the canvas clean
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 	
 	if(background.width != 0 && background.height != 0) {
 		for(var i = 0; i < canvas.width; i += background.width) {

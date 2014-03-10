@@ -49,7 +49,25 @@ var Player = function(startX, startY) {
 
 	// Draw player
 	var draw = function(ctx) {
-		ctx.fillRect(x-5, y-5, 10, 10);
+		ctx.fillStyle = 'red';
+		ctx.strokeStyle = 'green';
+		
+		ctx.beginPath();
+		ctx.moveTo(x, 0);
+		ctx.lineTo(x, ctx.canvas.height);
+		ctx.stroke();
+		
+		ctx.beginPath();
+		ctx.moveTo(0, y);
+		ctx.lineTo(ctx.canvas.width, y);
+		ctx.stroke();
+		
+		ctx.fillRect(x - 5, y - 5, 10, 10);
+		
+		ctx.fillText("X " + x + " Y " + y, x + 8, y - 6);
+		
+		ctx.fillStyle = 'black';
+		ctx.strokeStyle = 'black';
 	};
 
 	// Define which variables and methods can be accessed
