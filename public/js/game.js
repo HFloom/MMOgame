@@ -39,7 +39,7 @@ function init() {
 	// Initialise socket connection
 	//socket = io.connect("http://localhost", {port: 8000, transports: ["websocket"]});
 	socket = io.connect(document.getElementById("serverIP").value, {port: 8000, transports: ["websocket"]});
-
+	
 	// Initialise remote players array
 	remotePlayers = [];
 
@@ -102,6 +102,9 @@ function onSocketConnected() {
 
 	// Send local player data to the game server
 	socket.emit("new player", {x: localPlayer.getX(), y: localPlayer.getY()});
+	
+	animate();
+	document.getElementById("gameCanvas").style.visibility = "visible";
 };
 
 // Socket disconnected
