@@ -73,6 +73,19 @@ var setEventHandlers = function() {
 
 	// Player removed message received
 	socket.on("remove player", onRemovePlayer);
+	
+	// Mouse
+	document.body.addEventListener('touchmove', function(event) {
+	  event.preventDefault();
+	}, false); 
+
+	document.body.addEventListener('touchstart', function(event) {
+	  if(event.targetTouches.length > 0) {
+		var touch = event.targetToches[0];
+		setTarget(touch.pageX, touch.pageY);
+	  }
+	}, false);
+	
 };
 
 // Keyboard key down
@@ -104,7 +117,9 @@ function onSocketConnected() {
 	socket.emit("new player", {x: localPlayer.getX(), y: localPlayer.getY()});
 	
 	animate();
+	document.getElementById("login").style.visibility = "hidden";
 	document.getElementById("gameCanvas").style.visibility = "visible";
+	
 };
 
 // Socket disconnected
@@ -218,3 +233,8 @@ function playerById(id) {
 	
 	return false;
 };
+
+function setTarger(x1, y1) {
+	localPlayer.targetX = x1;
+	localPlayer.targetY = y1;
+}
