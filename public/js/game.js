@@ -82,9 +82,13 @@ var setEventHandlers = function() {
 	document.body.addEventListener('touchstart', function(event) {
 	  if(event.targetTouches.length > 0) {
 		var touch = event.targetToches[0];
-		setTarget(touch.pageX, touch.pageY);
+		if(localPlayer) {
+			localPlayer.setTarget(touch.pageX, touch.pageY);
+		}
 	  }
 	}, false);
+	
+	canvas.addEventListener("mousedown", onMouseDown, false);
 	
 };
 
@@ -168,6 +172,13 @@ function onRemovePlayer(data) {
 	remotePlayers.splice(remotePlayers.indexOf(removePlayer), 1);
 };
 
+function onMouseDown(event) {
+	//alert("X: " + event.pageX + "  Y: " + event.pageY);
+	
+	if(localPlayer) {
+		localPlayer.setTarget(event.pageX, event.pageY);
+	}
+}
 
 /**************************************************
 ** GAME ANIMATION LOOP
@@ -175,7 +186,6 @@ function onRemovePlayer(data) {
 function animate() {
 	update();
 	draw();
-
 	// Request a new animation frame using Paul Irish's shim
 	window.requestAnimFrame(animate);
 };
@@ -211,7 +221,7 @@ function draw() {
 	
 	// Draw the local player
 	localPlayer.draw(ctx);
-
+	
 	// Draw the remote players
 	var i;
 	for (i = 0; i < remotePlayers.length; i++) {
@@ -233,8 +243,3 @@ function playerById(id) {
 	
 	return false;
 };
-
-function setTarger(x1, y1) {
-	localPlayer.targetX = x1;
-	localPlayer.targetY = y1;
-}

@@ -6,8 +6,9 @@ var Player = function(startX, startY) {
 		y = startY,
 		id,
 		moveAmount = 2,
-		targetX = x,
-		targetY = y;
+		targetX = startX,
+		targetY = startY,
+		direction = 0;
 	
 	// Getters and setters
 	var getX = function() {
@@ -25,6 +26,12 @@ var Player = function(startX, startY) {
 	var setY = function(newY) {
 		y = newY;
 	};
+	
+	var setTarget = function(newX, newY) {
+		targetX = newX;
+		targetY = newY;
+		//alert("Set Target To: " + targetX + ", " + targetY);
+	}
 
 	// Update player position
 	var update = function(keys) {
@@ -45,7 +52,13 @@ var Player = function(startX, startY) {
 		} else if (keys.right) {
 			x += moveAmount;
 		};
-
+		
+		console.log( Math.round(Math.atan2(targetX - x, targetY - y) * 180 / Math.PI));
+		direction = Math.round(Math.atan2(targetX - x, targetY - y) * 180 / Math.PI);
+		
+		x += 1 * Math.sin(direction);
+		y += 1 * Math.cos(direction);
+		
 		return (prevX != x || prevY != y) ? true : false;
 	};
 
@@ -84,6 +97,7 @@ var Player = function(startX, startY) {
 		getY: getY,
 		setX: setX,
 		setY: setY,
+		setTarget: setTarget,
 		update: update,
 		draw: draw
 	}
